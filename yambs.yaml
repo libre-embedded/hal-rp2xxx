@@ -1,0 +1,25 @@
+# =====================================
+# generator=datazen
+# version=3.2.4
+# hash=8c6e8380bc39e73533bdb8cee034148f
+# =====================================
+---
+project:
+  name: hal-rp2xxx
+
+  github: {owner: &self libre-embedded}
+  version: {major: 0, minor: 1, patch: 0}
+variants:
+  clang:
+    suffix: &clang_version "-19"
+
+  debug:
+    suffix: &gcc_version "-14"
+  opt:
+    suffix: *gcc_version
+
+  clang-opt:
+    suffix: *clang_version
+
+includes:
+  - local/yambs.yaml

@@ -1,0 +1,11 @@
+---
+name: hal-rp2xxx
+description: A C++ RP2* hardware abstraction layer.
+owner: libre-embedded
+
+main_branch: main
+
+version:
+  major: 0
+  minor: 1
+  patch: 0
