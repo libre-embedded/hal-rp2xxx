@@ -1,6 +1,7 @@
 ---
 includes:
   - uart/include.yaml
+  - i2c/include.yaml
 namespace:
   - RP2XXX
 struct:
