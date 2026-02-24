@@ -4,8 +4,8 @@
  */
 
 #pragma once
-#ifndef HAL_RP2XXX_IFGEN_COMMON_H
-#define HAL_RP2XXX_IFGEN_COMMON_H
+#ifndef RP2XXX_IFGEN_COMMON_H
+#define RP2XXX_IFGEN_COMMON_H
 
 #include <bit>
 #include <concepts>
@@ -16,7 +16,7 @@
 #include <streambuf>
 #include <utility>
 
-namespace hal_rp2xxx
+namespace RP2XXX
 {
 
 /* Enforce that this isn't a mixed-endian system. */
@@ -135,6 +135,6 @@ concept ifgen_struct = requires {
     std::is_same_v<decltype(T::size), std::size_t>;
 };
 
-}; // namespace hal_rp2xxx
+}; // namespace RP2XXX
 
 #endif

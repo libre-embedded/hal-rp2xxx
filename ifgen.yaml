@@ -1,6 +1,4 @@
 ---
 includes:
+  - ifgen/ifgen.yaml
   - config/python/ifgen/settings.yaml
-  - package://ifgen/plugins/struct_receiver.yaml
-
-namespace: [hal_rp2xxx]

@@ -1,0 +1,14 @@
+---
+includes:
+  - uart/include.yaml
+namespace:
+  - RP2XXX
+struct:
+  stream: false
+  codec: false
+  methods: false
+  unit_test: false
+  packed: false
+enum:
+  use_map: false
+  identifier: false
