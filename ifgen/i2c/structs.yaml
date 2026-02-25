@@ -245,7 +245,7 @@ structs:
                               Reset value: 0x0
             index: 8
             width: 1
-            read: true
+            read: false
             write: true
           - name: STOP
             description: |-
@@ -253,7 +253,7 @@ structs:
                               - 1 - STOP is issued after this byte, regardless of whether or not the Tx FIFO is empty. If the Tx FIFO is not empty, the master immediately tries to start a new transfer by issuing a START and arbitrating for the bus. - 0 - STOP is not issued after this byte, regardless of whether or not the Tx FIFO is empty. If the Tx FIFO is not empty, the master continues the current transfer by sending/receiving data bytes according to the value of the CMD bit. If the Tx FIFO is empty, the master holds the SCL line low and stalls the bus until a new command is available in the Tx FIFO. Reset value: 0x0
             index: 9
             width: 1
-            read: true
+            read: false
             write: true
           - name: RESTART
             description: |-
@@ -263,7 +263,7 @@ structs:
                               Reset value: 0x0
             index: 10
             width: 1
-            read: true
+            read: false
             write: true
           - name: FIRST_DATA_BYTE
             description: |-

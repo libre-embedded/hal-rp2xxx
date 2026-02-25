@@ -1133,28 +1133,6 @@ below are the settings for those parameters */
     }
 
     /**
-     * Get IC_DATA_CMD's CMD bit.
-     *
-     * This bit controls whether a read or a write is performed. This bit does
-     * not control the direction when the DW_apb_i2con acts as a slave. It
-     * controls only the direction when it acts as a master. When a command is
-     * entered in the TX FIFO, this bit distinguishes the write and read
-     * commands. In slave-receiver mode, this bit is a 'don't care' because
-     * writes to this register are not required. In slave-transmitter mode, a
-     * '0' indicates that the data in IC_DATA_CMD is to be transmitted. When
-     * programming this bit, you should remember the following: attempting to
-     * perform a read operation after a General Call command has been sent
-     * results in a TX_ABRT interrupt (bit 6 of the IC_RAW_INTR_STAT register),
-     * unless bit 11 (SPECIAL) in the IC_TAR register has been cleared. If a
-     * '1' is written to this bit after receiving a RD_REQ interrupt, then a
-     * TX_ABRT interrupt occurs. Reset value: 0x0
-     */
-    inline bool get_IC_DATA_CMD_CMD() volatile
-    {
-        return IC_DATA_CMD & (1u << 8u);
-    }
-
-    /**
      * Set IC_DATA_CMD's CMD bit.
      *
      * This bit controls whether a read or a write is performed. This bit does
@@ -1221,26 +1199,6 @@ below are the settings for those parameters */
     }
 
     /**
-     * Get IC_DATA_CMD's STOP bit.
-     *
-     * This bit controls whether a STOP is issued after the byte is sent or
-     * received.
-     *                 - 1 - STOP is issued after this byte, regardless of
-     * whether or not the Tx FIFO is empty. If the Tx FIFO is not empty, the
-     * master immediately tries to start a new transfer by issuing a START and
-     * arbitrating for the bus. - 0 - STOP is not issued after this byte,
-     * regardless of whether or not the Tx FIFO is empty. If the Tx FIFO is not
-     * empty, the master continues the current transfer by sending/receiving
-     * data bytes according to the value of the CMD bit. If the Tx FIFO is
-     * empty, the master holds the SCL line low and stalls the bus until a new
-     * command is available in the Tx FIFO. Reset value: 0x0
-     */
-    inline bool get_IC_DATA_CMD_STOP() volatile
-    {
-        return IC_DATA_CMD & (1u << 9u);
-    }
-
-    /**
      * Set IC_DATA_CMD's STOP bit.
      *
      * This bit controls whether a STOP is issued after the byte is sent or
@@ -1298,23 +1256,6 @@ below are the settings for those parameters */
     inline void toggle_IC_DATA_CMD_STOP() volatile
     {
         IC_DATA_CMD ^= 1u << 9u;
-    }
-
-    /**
-     * Get IC_DATA_CMD's RESTART bit.
-     *
-     * This bit controls whether a RESTART is issued before the byte is sent or
-     * received. 1 - If IC_RESTART_EN is 1, a RESTART is issued before the data
-     * is sent/received (according to the value of CMD), regardless of whether
-     * or not the transfer direction is changing from the previous command; if
-     * IC_RESTART_EN is 0, a STOP followed by a START is issued instead. 0 - If
-     * IC_RESTART_EN is 1, a RESTART is issued only if the transfer direction
-     * is changing from the previous command; if IC_RESTART_EN is 0, a STOP
-     * followed by a START is issued instead. Reset value: 0x0
-     */
-    inline bool get_IC_DATA_CMD_RESTART() volatile
-    {
-        return IC_DATA_CMD & (1u << 10u);
     }
 
     /**
@@ -1402,15 +1343,11 @@ below are the settings for those parameters */
      * read command should be written for every byte that is to be received;
      * otherwise the DW_apb_i2c will stop acknowledging.
      */
-    inline void get_IC_DATA_CMD(uint8_t &DAT, bool &CMD, bool &STOP,
-                                bool &RESTART, bool &FIRST_DATA_BYTE) volatile
+    inline void get_IC_DATA_CMD(uint8_t &DAT, bool &FIRST_DATA_BYTE) volatile
     {
         uint32_t curr = IC_DATA_CMD;
 
         DAT = curr & 0xffu;
-        CMD = curr & (1u << 8u);
-        STOP = curr & (1u << 9u);
-        RESTART = curr & (1u << 10u);
         FIRST_DATA_BYTE = curr & (1u << 11u);
     }
 
